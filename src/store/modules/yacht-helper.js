@@ -69,7 +69,7 @@ const getters = {
     scoreInFourOfAKind(state) {
         let bestDice = countDices(state.dices)[0];
         if (bestDice.count >= 4) {
-            return bestDice.count * bestDice.dice;
+            return state.dices.reduce((a, b) => a + b);
         } else {
             return 0;
         }
