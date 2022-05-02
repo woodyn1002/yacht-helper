@@ -1,13 +1,15 @@
 import {Player} from "@/player";
+import _ from "lodash";
 
 const state = () => ({
     players: [],
-    dices: []
+    dices: [],
+    history: []
 });
 
 const getters = {
     getPlayer(state) {
-        return (index) => state.players[index]
+        return (index) => _.cloneDeep(state.players[index])
     },
     getWinner(state) {
         return state.players.slice().sort((a, b) => b.getTotalScore() - a.getTotalScore())[0];
@@ -133,7 +135,12 @@ const mutations = {
         state.players.pop();
     },
     savePlayer(state, {index, player}) {
+        state.history.push([...state.players]);
         state.players[index] = player;
+    },
+    undo(state) {
+        if (state.history.length === 0) return;
+        state.players = state.history.pop();
     },
     cleanUp(state) {
         for (const index in state.players) {

@@ -37,7 +37,8 @@
     </div>
 
     <div class="text-center mt-3">
-      <b-button variant="danger" @click="cleanUp">점수 초기화</b-button>
+      <b-button variant="secondary" @click="undo">실행 취소</b-button>
+      <b-button variant="danger" @click="cleanUp" class="ml-1">점수 초기화</b-button>
     </div>
   </div>
 </template>
@@ -83,6 +84,7 @@ export default {
     ...mapMutations('yachtHelper', [
       'pushNewPlayer',
       'popPlayer',
+      'undo',
       'cleanUp',
       'addDice',
       'resetDices'
